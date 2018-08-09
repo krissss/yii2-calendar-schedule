@@ -1,0 +1,52 @@
+#draggable-event-container .draggable-event {
+  display: block;
+  width: 100%;
+  font-size: 100%;
+  padding: 5px 10px;
+  margin-bottom: 4px;
+  cursor: move;
+  transition: transform linear .3s;
+}
+
+#draggable-event-container .draggable-event:hover {
+  transform: translateX(10px);
+}
+
+#drop-to-cash.alert {
+  border: 1px solid #eee;
+  transition: transform linear .3s;
+  margin-bottom: 0;
+}
+
+#color-chooser-container {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+#color-chooser-container li {
+  display: inline-block;
+}
+
+#color-chooser-container .color-chooser {
+  font-size: 100%;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  min-width: 30px;
+  cursor: pointer;
+  transition: transform linear .3s;
+}
+
+#color-chooser-container .color-chooser:hover {
+  transform: rotate(30deg);
+}
+
+#add-new-event.btn {
+  color: #fff;
+}
