@@ -58,3 +58,5 @@ echo CalendarScheduleWidget::widget([
     ]
 ]);
 ```
+
+注意：fullcalendar 支持的版本为 3.9.0，往上结构调整不支持，且 jquery 必须为 2.x 版本
