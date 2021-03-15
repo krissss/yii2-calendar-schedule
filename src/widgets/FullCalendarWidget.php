@@ -3,8 +3,9 @@
 namespace kriss\calendarSchedule\widgets;
 
 use kriss\calendarSchedule\assets\FullCalendarAsset;
+use kriss\calendarSchedule\widgets\processors\BaseProcessor;
 use yii\base\Widget;
-use yii\helpers\ArrayHelper;
+use yii\di\Instance;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JsExpression;
@@ -17,14 +18,9 @@ class FullCalendarWidget extends Widget
     /**
      * FullCalendarAsset::class
      * FullCalendarScheduleAsset::class
-     * @var string
+     * @var FullCalendarAsset|string
      */
     public $fullCalendarAsset = FullCalendarAsset::class;
-    /**
-     * see @npm/fullcalendar/locales
-     * @var string
-     */
-    public $locale;
     /**
      * @var array
      */
@@ -34,6 +30,10 @@ class FullCalendarWidget extends Widget
      * @var array
      */
     public $clientOptions = [];
+    /**
+     * @var BaseProcessor[] array
+     */
+    public $processors = [];
     /**
      * @var string
      */
@@ -56,12 +56,23 @@ class FullCalendarWidget extends Widget
         } else {
             $this->setId($this->options['id']);
         }
-
-        $this->registerAssets();
     }
 
     public function run()
     {
+        foreach ($this->processors as $processor) {
+            $processor = Instance::ensure($processor, BaseProcessor::class);
+            $processor->calendarWidget = $this;
+            $processor->process();
+        }
+
+        $asset = $this->fullCalendarAsset;
+        $asset::register($this->view);
+
+        if (!isset($this->clientOptions['locale'])) {
+            $this->clientOptions['locale'] = $asset::$locale;
+        }
+
         $renderBefore = $this->calendarRenderBefore ? new JsExpression("(function(calendar) {{$this->calendarRenderBefore}})({$this->clientName});\n") : '';
         $renderAfter = $this->calendarRenderAfter ? new JsExpression("\n(function(calendar) {{$this->calendarRenderAfter}})({$this->clientName});") : '';
 
@@ -74,34 +85,5 @@ JS;
         $this->view->registerJs($js);
 
         return Html::tag('div', '', $this->options);
-    }
-
-    protected function registerAssets()
-    {
-        /** @var FullCalendarAsset $asset */
-        $asset = $this->fullCalendarAsset;
-
-        if ($this->locale) {
-            $asset::$locale = $this->locale;
-        }
-        $asset::register($this->view);
-
-        $this->setClientOption('locale', $asset::$locale);
-    }
-
-    public function getClientOption($path, $default = [])
-    {
-        return ArrayHelper::getValue($this->clientOptions, $path, $default);
-    }
-
-    public function setClientOption($path, $value, $merge = true)
-    {
-        if ($merge) {
-            $oldValue = $this->getClientOption($path);
-            if ($oldValue) {
-                $value = ArrayHelper::merge($oldValue, $value);
-            }
-        }
-        ArrayHelper::setValue($this->clientOptions, $path, $value);
     }
 }

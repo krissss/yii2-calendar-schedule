@@ -1,8 +1,8 @@
 <?php
 
-namespace kriss\calendarSchedule\widgets\traits;
+namespace kriss\calendarSchedule\widgets\processors;
 
-trait PresetLayout
+class HeaderToolbarProcessor extends BaseProcessor
 {
     /**
      * @var string[]
@@ -18,7 +18,10 @@ trait PresetLayout
      */
     public $views = ['dayGridMonth', 'timeGridWeek', 'listWeek'];
 
-    protected function setClientHeaderToolbar()
+    /**
+     * @inheritDoc
+     */
+    public function process()
     {
         $views = implode(',', $this->views);
         foreach ($this->headerToolbar as $pos => $option) {
