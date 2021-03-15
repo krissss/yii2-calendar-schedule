@@ -4,7 +4,7 @@ Yii2 Calendar Schedule
 
 ScreenShot
 ------------
-![Effect picture 1](https://github.com/krissss/yii2-calendar-schedule/blob/master/src/screenshot.png "Effect picture 1")  
+![Effect picture 1](screenshot.png "Effect picture 1")  
 
 Installation
 ------------
