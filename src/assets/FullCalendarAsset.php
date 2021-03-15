@@ -4,6 +4,10 @@ namespace kriss\calendarSchedule\assets;
 
 use yii\web\AssetBundle;
 
+/**
+ * wrap for fullcalendar
+ * @link http://npmjs.com/package/fullcalendar
+ */
 class FullCalendarAsset extends AssetBundle
 {
     public static $locale = 'zh-cn';
