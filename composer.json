@@ -18,8 +18,7 @@
   ],
   "require": {
     "yiisoft/yii2": "~2.0.0",
-    "yiisoft/yii2-jui": "^2.0",
-    "npm-asset/fullcalendar": "3.9.0"
+    "npm-asset/fullcalendar": "^5.5"
   },
   "require-dev": {
     "kriss/foxy-yii2-convert": "v1.4"
@@ -31,15 +30,7 @@
     "bower-asset/jquery.inputmask": "*",
     "bower-asset/punycode": "*",
     "bower-asset/yii2-pjax": "*",
-    "bower-asset/jquery-ui": "*",
     "npm-asset/fullcalendar": "*"
-  },
-  "config": {
-    "foxy-yii2-convert": {
-      "target-map": {
-        "bower-asset/jquery-ui": "npm-asset/components-jqueryui"
-      }
-    }
   },
   "autoload": {
     "psr-4": {
