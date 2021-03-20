@@ -2,6 +2,7 @@
 
 namespace kriss\calendarSchedule\widgets\processors;
 
+use kriss\calendarSchedule\events\BaseEvent;
 use yii\helpers\Url;
 
 class EventProcessor extends BaseProcessor
@@ -31,8 +32,19 @@ class EventProcessor extends BaseProcessor
             return;
         }
 
-        if (is_array($this->events) && isset($this->events[0]) && !is_array($this->events[0])) {
-            $this->events = Url::to($this->events);
+        if (is_array($this->events) && isset($this->events[0])) {
+            if (!is_array($this->events[0])) {
+                // url like: ['site/schedule-events']
+                $this->events = Url::to($this->events);
+            } else {
+                // events array use TitleEvent、UrlEvent and other BaseEvent
+                $this->events = array_map(function ($event) {
+                    if ($event instanceof BaseEvent) {
+                        return $event->toArray();
+                    }
+                    return $event;
+                }, $this->events);
+            }
         }
 
         $this->setClientOption('events', $this->events);
