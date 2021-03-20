@@ -15,6 +15,12 @@ class EventProcessor extends BaseProcessor
      * @var array|string
      */
     public $events = [];
+    /**
+     * event order, change default title sort to events array sort
+     * @link https://fullcalendar.io/docs/eventOrder
+     * @var string
+     */
+    public $eventOrder = 'function() {return -1;}';
 
     /**
      * @inheritDoc
@@ -30,5 +36,8 @@ class EventProcessor extends BaseProcessor
         }
 
         $this->setClientOption('events', $this->events);
+        if ($this->eventOrder) {
+            $this->setClientOption('eventOrder', $this->eventOrder);
+        }
     }
 }
