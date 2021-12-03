@@ -23,15 +23,6 @@
   "require-dev": {
     "kriss/foxy-yii2-convert": "v1.4"
   },
-  "provide": {
-    "bower-asset/jquery": "*",
-    "bower-asset/bootstrap": "*",
-    "bower-asset/inputmask": "*",
-    "bower-asset/jquery.inputmask": "*",
-    "bower-asset/punycode": "*",
-    "bower-asset/yii2-pjax": "*",
-    "npm-asset/fullcalendar": "*"
-  },
   "autoload": {
     "psr-4": {
       "kriss\\calendarSchedule\\": "src"
